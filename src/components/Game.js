@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { games } from './GamesList'
+import { games } from '../data/GamesList'
 
 const title = "";
 
@@ -22,9 +22,10 @@ for(const game in games) {
         key={game} 
         className='Game'
         alt={game}
-        src={games[game].img}
+        src={games[game].image}
         aria-label={game}
         role='button'
+        onClick={displayFact}
         />
     )
 }
@@ -32,17 +33,18 @@ for(const game in games) {
 function displayFact(e) {
     const selectedGame = e.target.alt;
     const gameInfo = games[selectedGame];
-    const optionIndex = Math.floor(Math.random() * gameInfo.images.length);
+    const optionIndex = Math.floor(Math.random() * gameInfo.overview.length);
 
-    const game_info = gameInfo.images[optionIndex];
+    const game_info = gameInfo.overview[optionIndex];
     document.getElementById('game').innerHTML = game_info
 }
 
 
 
-const gameFacts = (
-    <div>
-        <h1>
+function Game() {
+    return (
+        <div>
+              <h1>
             {title === '' ? 'Click a Game title for an Overview' : title}
         </h1>
         {showBackground && background}
@@ -50,7 +52,27 @@ const gameFacts = (
         <div className= 'games'>
             {images}
         </div>
-    </div>
-);
+            
+        </div>
+    )
+}
 
-ReactDOM.render(gameFacts, document.getElementById('root'))
+
+
+// const gameFacts = (
+//     <div>
+//         <h1>
+//             {title === '' ? 'Click a Game title for an Overview' : title}
+//         </h1>
+//         {showBackground && background}
+//         <p id= 'game'></p>
+//         <div className= 'games'>
+//             {images}
+//         </div>
+        
+//     </div>
+// );
+
+// ReactDOM.render(gameFacts, document.getElementById('root'))
+
+export default Game;
